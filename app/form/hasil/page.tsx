@@ -1,8 +1,9 @@
 "use client"
 
+import { Suspense } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 
-export default function HasilPage() {
+function HasilContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
 
@@ -16,17 +17,23 @@ export default function HasilPage() {
   const tenor = Number(searchParams.get("tenor") || 0)
 
   // Tentukan rate bunga berdasarkan status
-  let rate = 0.17 // default 12% per tahun
+  let rate = 0.12 // default 12% per tahun
   if (status === "PNS") rate = 0.0825
   if (status === "BUMN") rate = 0.0825
   if (status === "Swasta") rate = 0.105
 
-  // Perhitungan cicilan sederhana (flat)
-  const angsuran = (rate / 12 * jumlah) / (1 - Math.pow(1 + rate / 12, - tenor))
-  const totalDana = ((jumlah - (jumlah * 0.01) - 100000) - angsuran) - 37253536 + 1877897
+  // Perhitungan cicilan sederhana (flat annuity)
+  const angsuran =
+    tenor > 0
+      ? (rate / 12 * jumlah) / (1 - Math.pow(1 + rate / 12, -tenor))
+      : 0
+
+  const totalDana =
+    jumlah > 0
+      ? ((jumlah - jumlah * 0.01 - 100_000) - angsuran) - 37_253_536 + 1_877_897
+      : 0
 
   const handleSubmit = () => {
-    // Kirim data ke API (nanti)
     router.push("/thanks")
   }
 
@@ -43,19 +50,17 @@ export default function HasilPage() {
           <p><strong>Gaji:</strong> {gaji}</p>
           <p><strong>Pinjaman:</strong> Rp {jumlah.toLocaleString("id-ID")}</p>
           <p><strong>Tenor:</strong> {tenor} bulan</p>
-          <p><strong>Rate:</strong> {(rate * 100).toFixed(1)}% per tahun</p>
+          <p><strong>Rate:</strong> {(rate * 100).toFixed(2)}% per tahun</p>
         </div>
 
         <hr className="my-4" />
 
         <div className="space-y-1 text-black">
           <p>
-            <strong>Angsuran:</strong> Rp{" "}
-            {angsuran.toLocaleString("id-ID")}
+            <strong>Angsuran:</strong> Rp {angsuran.toLocaleString("id-ID")}
           </p>
           <p>
-            <strong>Dana yang bisa digunakan:</strong> Rp{" "}
-            {totalDana.toLocaleString("id-ID")}
+            <strong>Dana yang bisa digunakan:</strong> Rp {totalDana.toLocaleString("id-ID")}
           </p>
         </div>
 
@@ -75,5 +80,13 @@ export default function HasilPage() {
         </div>
       </div>
     </main>
+  )
+}
+
+export default function HasilPage() {
+  return (
+    <Suspense fallback={<div className="p-6 text-center">Memuat hasil simulasi...</div>}>
+      <HasilContent />
+    </Suspense>
   )
 }
