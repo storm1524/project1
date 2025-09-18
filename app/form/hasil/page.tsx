@@ -30,7 +30,7 @@ function HasilContent() {
 
   const totalDana =
     jumlah > 0
-      ? ((jumlah - jumlah * 0.01 - 100_000) - angsuran) - 37_253_536 + 1_877_897
+      ? ((jumlah - jumlah * 0.01 - 100_000) - angsuran) - 0 + 0
       : 0
 
   const handleSubmit = () => {
