@@ -1,12 +1,10 @@
+import Image from "next/image"
+
 export default function Home() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-gray-100">
       <div className="text-center">
-        <img 
-          src="/logo.png" 
-          alt="Logo LINCA" 
-          className="mx-auto mb-6 w-32 h-auto" 
-        />
+        <Image src="/logo.png" alt="Logo" width={200} height={200} />
         <a
           href="/form"
           style={{ backgroundColor: '#143661' }}

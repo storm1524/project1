@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 export default function ThanksPage() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-green-50">
@@ -7,12 +9,12 @@ export default function ThanksPage() {
         <p className="text-gray-600 mb-4">
           Data Anda telah kami terima. Tim kami akan segera menghubungi Anda.
         </p>
-        <a
+        <Link
           href="/"
           className="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700"
         >
           Kembali ke Beranda
-        </a>
+        </Link>
       </div>
     </main>
   )
