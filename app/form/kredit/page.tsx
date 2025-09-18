@@ -1,9 +1,9 @@
 "use client"
 
+import { Suspense, useState } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
-import { useState } from "react"
 
-export default function KreditPage() {
+function KreditContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
 
@@ -84,5 +84,13 @@ export default function KreditPage() {
         </form>
       </div>
     </main>
+  )
+}
+
+export default function KreditPage() {
+  return (
+    <Suspense fallback={<div className="p-6 text-center">Memuat form kredit...</div>}>
+      <KreditContent />
+    </Suspense>
   )
 }
