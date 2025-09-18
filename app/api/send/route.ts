@@ -1,24 +1,25 @@
-import { NextResponse } from "next/server"
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const data = await req.json()
-    console.log("Data diterima:", data)
+    const body = await req.json();
 
-    // ===============================
-    // TODO: Tambahkan integrasi email/WA di sini
-    // contoh pakai Resend API atau Twilio/Fonnte
-    // ===============================
+    // contoh: ambil data dari form
+    const { nama, instansi, telepon } = body;
 
-    return NextResponse.json({
-      success: true,
-      message: "Data berhasil diterima",
-    })
-  } catch (error) {
-    console.error("Error API send:", error)
+    console.log("Data diterima:", nama, instansi, telepon);
+
+    // di sini nanti bisa tambahin kirim ke Fonnte/Email/WA
+
     return NextResponse.json(
-      { success: false, message: "Gagal kirim data" },
+      { success: true, message: "Data berhasil dikirim" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error:", error);
+    return NextResponse.json(
+      { success: false, message: "Terjadi kesalahan server" },
       { status: 500 }
-    )
+    );
   }
 }
