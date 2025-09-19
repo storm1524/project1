@@ -16,12 +16,6 @@ function HasilContent() {
   const jumlah = Number(searchParams.get("jumlah") || 0)
   const tenor = Number(searchParams.get("tenor") || 0)
 
-  // Tentukan rate bunga berdasarkan status
-  let rate = 0.17 // default 17% per tahun
-  if (status === "PNS") rate = 0.0825
-  if (status === "BUMN") rate = 0.0825
-  if (status === "Swasta") rate = 0.105
-
   // Tentukan rate bunga berdasarkan status dan instansi
   let rate = 0.17 // default 17% per tahun
   
@@ -32,6 +26,17 @@ function HasilContent() {
   } else if (status === "Swasta") {
     rate = 0.17
   }
+
+  // Perhitungan cicilan sederhana (flat annuity)
+  const angsuran =
+    tenor > 0
+      ? (rate / 12 * jumlah) / (1 - Math.pow(1 + rate / 12, -tenor))
+      : 0
+
+  const totalDana =
+    jumlah > 0
+      ? ((jumlah - jumlah * 0.01 - 100_000) - angsuran)
+      : 0
 
   const handleSubmit = () => {
     router.push("/thanks")
