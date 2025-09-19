@@ -22,16 +22,16 @@ function HasilContent() {
   if (status === "BUMN") rate = 0.0825
   if (status === "Swasta") rate = 0.105
 
-  // Perhitungan cicilan sederhana (flat annuity)
-  const angsuran =
-    tenor > 0
-      ? (rate / 12 * jumlah) / (1 - Math.pow(1 + rate / 12, -tenor))
-      : 0
-
-  const totalDana =
-    jumlah > 0
-      ? ((jumlah - jumlah * 0.01 - 100_000) - angsuran)
-      : 0
+  // Tentukan rate bunga berdasarkan status dan instansi
+  let rate = 0.17 // default 17% per tahun
+  
+  if (status === "PNS" || status === "BUMN") {
+    rate = 0.0825
+  } else if (status === "Swasta" && (instansi.toLowerCase() === "chakra jawara" || instansi.toLowerCase() === "cakra jawara")) {
+    rate = 0.105
+  } else if (status === "Swasta") {
+    rate = 0.17
+  }
 
   const handleSubmit = () => {
     router.push("/thanks")
