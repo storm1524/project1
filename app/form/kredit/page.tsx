@@ -15,7 +15,7 @@ function KreditContent() {
   const gaji = searchParams.get("gaji") || ""
 
   // State untuk input kredit
-  const [jumlah, setJumlah] = useState(10000000) // default 10 juta
+  const [jumlah, setJumlah] = useState(50000000) // default 50 juta
   const [tenor, setTenor] = useState("12") // default 12 bulan
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -47,8 +47,8 @@ function KreditContent() {
             </label>
             <input
               type="range"
-              min="2500000"
-              max="500000000"
+              min="50000000"
+              max="750000000"
               step="5000000"
               value={jumlah}
               onChange={(e) => setJumlah(Number(e.target.value))}
@@ -68,10 +68,16 @@ function KreditContent() {
               required
               className="w-full border rounded-lg px-3 py-2 text-black"
             >
-              <option value="6">6 bulan</option>
               <option value="12">12 bulan</option>
+              <option value="18">18 bulan</option>
               <option value="24">24 bulan</option>
               <option value="36">36 bulan</option>
+              <option value="60">60 bulan</option>
+              <option value="72">72 bulan</option>
+              <option value="84">84 bulan</option>
+              <option value="96">96 bulan</option>
+              <option value="108">108 bulan</option>
+              <option value="120">120 bulan</option>
             </select>
           </div>
 

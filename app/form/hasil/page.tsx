@@ -17,7 +17,7 @@ function HasilContent() {
   const tenor = Number(searchParams.get("tenor") || 0)
 
   // Tentukan rate bunga berdasarkan status
-  let rate = 0.12 // default 12% per tahun
+  let rate = 0.17 // default 17% per tahun
   if (status === "PNS") rate = 0.0825
   if (status === "BUMN") rate = 0.0825
   if (status === "Swasta") rate = 0.105
@@ -30,7 +30,7 @@ function HasilContent() {
 
   const totalDana =
     jumlah > 0
-      ? ((jumlah - jumlah * 0.01 - 100_000) - angsuran) - 0 + 0
+      ? ((jumlah - jumlah * 0.01 - 100_000) - angsuran)
       : 0
 
   const handleSubmit = () => {
@@ -57,10 +57,10 @@ function HasilContent() {
 
         <div className="space-y-1 text-black">
           <p>
-            <strong>Angsuran:</strong> Rp {angsuran.toLocaleString("id-ID")}
+            <strong>Angsuran:</strong> Rp {Math.round(angsuran).toLocaleString("id-ID")}
           </p>
           <p>
-            <strong>Dana yang bisa digunakan:</strong> Rp {totalDana.toLocaleString("id-ID")}
+            <strong>Dana yang bisa digunakan:</strong> Rp {Math.round(totalDana).toLocaleString("id-ID")}
           </p>
         </div>
 
@@ -73,7 +73,8 @@ function HasilContent() {
           </button>
           <button
             onClick={() => router.back()}
-            className="w-full px-4 py-2 bg-gray-200 rounded-xl hover:bg-gray-300"
+            style={{ backgroundColor: '#143661' }}
+            className="w-full px-4 py-2 rounded-xl hover:bg-gray-300"
           >
             Hitung Ulang
           </button>

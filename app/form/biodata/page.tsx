@@ -93,10 +93,11 @@ function BiodataForm() {
               className="w-full border rounded-lg px-3 py-2 text-black"
             >
               <option value="">Pilih range</option>
-              <option value="2-5jt">2 - 5 juta</option>
+              <option value="3-5jt">3 - 5 juta</option>
               <option value="5-10jt">5 - 10 juta</option>
-              <option value="10-20jt">10 - 20 juta</option>
-              <option value="20jt+">20 juta ke atas</option>
+              <option value="10-15jt">10 - 15 juta</option>
+              <option value="15-25jt">15 - 25 juta</option>
+              <option value="25jt+">25 juta ke atas</option>
             </select>
           </div>
 
